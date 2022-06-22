@@ -22,6 +22,9 @@ class StopSelfStopServiceInStartedService : Service() {
 
         while (thread.mHandler == null) {
         }
+
+        //set the service instance
+        thread.mHandler?.setStopSelfStopService(this)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -30,7 +33,8 @@ class StopSelfStopServiceInStartedService : Service() {
 
         val message: Message = Message.obtain()
         message.obj = songName
-        thread.mHandler.handleMessage(message)
+        message.arg1 = startId
+        thread.mHandler?.handleMessage(message)
 
 //        return START_STICKY
         return START_NOT_STICKY

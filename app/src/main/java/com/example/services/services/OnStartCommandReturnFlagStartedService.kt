@@ -30,7 +30,7 @@ class OnStartCommandReturnFlagStartedService : Service() {
 
         val message: Message = Message.obtain()
         message.obj = songName
-        thread.mHandler.handleMessage(message)
+        thread.mHandler?.handleMessage(message)
 
 //        return START_STICKY
         return START_NOT_STICKY

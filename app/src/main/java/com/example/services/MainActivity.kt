@@ -50,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         displayProgressBar(true)
 
         for (song in Playlist.songs) {
+//            val intent = Intent(this, MainThreadStartedService::class.java)
+//            val intent = Intent(this, BackGroundThreadStartedService::class.java)
+//            val intent = Intent(this, ThreadLooperHandlerStartedService::class.java)
+//            val intent = Intent(this, AsyncTaskStartedService::class.java)
+//            val intent = Intent(this, OnStartCommandReturnFlagStartedService::class.java)
             val intent = Intent(this, StopSelfStopServiceInStartedService::class.java)
             intent.putExtra(MessageKey, song)
             startService(intent)

@@ -33,7 +33,7 @@ class ThreadLooperHandlerStartedService : Service() {
 
         val message: Message = Message.obtain()
         message.obj = songName
-        thread.mHandler.handleMessage(message)
+        thread.mHandler?.handleMessage(message)
 
 
         return START_REDELIVER_INTENT
