@@ -1,4 +1,4 @@
-package com.example.services.services
+package com.example.services.services.startedService
 
 import android.app.Service
 import android.content.Intent
@@ -6,11 +6,10 @@ import android.content.res.Configuration
 import android.os.IBinder
 import android.util.Log
 
-class MainThreadStartedService : Service() {
+class BackGroundThreadStartedService : Service() {
     val MessageKey = "message_key"
     val MyTag = "MyTag"
     val MyLogTag = "MyLogTag"
-
 
     override fun onCreate() {
         super.onCreate()
@@ -64,16 +63,23 @@ class MainThreadStartedService : Service() {
 
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.e(MyLogTag, "Service : onStartCommand()")
-        Log.e(MyTag, "CurrentThread : ${Thread.currentThread().name}")
+        //Log.e(MyLogTag, "Service : onStartCommand()")
+        //Log.e(MyTag, "onStartCommand CurrentThread : ${Thread.currentThread().name}")
 
         val songName = intent?.getStringExtra(MessageKey)
-        downLoadSong(songName)
-        return Service.START_REDELIVER_INTENT
+        Log.e(MyTag, "onStartCommand : $songName")
+
+        val thread = Thread {
+            downLoadSong(songName)
+        }
+        thread.start()
+
+        return START_REDELIVER_INTENT
     }
 
     private fun downLoadSong(songName: String?) {
-        Log.e(MyTag, "run: starting download")
+        //Log.e(MyTag, "run: starting download")
+        //Log.e(MyTag, "downLoadSong CurrentThread : ${Thread.currentThread().name}")
         try {
             Thread.sleep(4000)
         } catch (e: InterruptedException) {

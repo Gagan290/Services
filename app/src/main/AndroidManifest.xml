@@ -11,37 +11,42 @@
         android:theme="@style/Theme.Services">
 
         <service
-            android:name=".services.MainThreadStartedService"
+            android:name=".services.startedService.MainThreadStartedService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".services.BackGroundThreadStartedService"
+            android:name=".services.startedService.BackGroundThreadStartedService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".services.ThreadLooperHandlerStartedService"
+            android:name=".services.startedService.ThreadLooperHandlerStartedService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".services.AsyncTaskStartedService"
+            android:name=".services.startedService.AsyncTaskStartedService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".services.OnStartCommandReturnFlagStartedService"
+            android:name=".services.startedService.OnStartCommandReturnFlagStartedService"
             android:enabled="true"
             android:exported="false" />
 
         <service
-            android:name=".services.StopSelfStopServiceInStartedService"
+            android:name=".services.startedService.StopSelfStopServiceInStartedService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name=".services.startedService.ResultReceiverStartedService"
             android:enabled="true"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".StartServiceMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
