@@ -1,11 +1,13 @@
 package com.example.services.services.jobScheduler
 
+import android.annotation.SuppressLint
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 
+@SuppressLint("SpecifyJobSchedulerIdRange")
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class MyDownloadJobSchedulerService : JobService() {
     private val TAG = "MyTag"

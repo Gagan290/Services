@@ -1,4 +1,4 @@
-package com.example.services
+package com.example.services.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,8 @@ import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.services.Playlist
+import com.example.services.R
 import com.example.services.services.startedService.ResultReceiverStartedService
 
 class StartServiceMainActivity : AppCompatActivity() {

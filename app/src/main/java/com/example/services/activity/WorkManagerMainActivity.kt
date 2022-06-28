@@ -1,21 +1,23 @@
-package com.example.services
+package com.example.services.activity
 
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.services.services.jobScheduler.MyDownloadJobSchedulerService
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
+import com.example.services.R
+import com.example.services.services.workManager.MyWorkManager
+import java.util.concurrent.TimeUnit
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class JobSchedulerApiMainActivity : AppCompatActivity() {
+class WorkManagerMainActivity : AppCompatActivity() {
     private val TAG = "MyTag"
     lateinit var mLog: TextView
     lateinit var btnRunCode: Button
@@ -23,10 +25,9 @@ class JobSchedulerApiMainActivity : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
     lateinit var scrollView: ScrollView
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.job_scheduler_activity_main)
+        setContentView(R.layout.work_manager_activity_main)
 
         initViews()
         clickListener()
@@ -50,28 +51,20 @@ class JobSchedulerApiMainActivity : AppCompatActivity() {
     }
 
     private fun runCode() {
-        val jobScheduler: JobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
-
-        val componentName = ComponentName(this, MyDownloadJobSchedulerService::class.java)
-
-        val jobInfo = JobInfo.Builder(1001, componentName)
-            .setRequiredNetworkType(JobInfo.NETWORK_TYPE_UNMETERED)
-            .setMinimumLatency(5000)
-            //.setPeriodic(15 * 60 * 1000)
-            .setPersisted(true)
+        val contraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
-        val result = jobScheduler.schedule(jobInfo)
+        val workRequest =
+            PeriodicWorkRequest.Builder(MyWorkManager::class.java, 5, TimeUnit.MINUTES)
+                .setConstraints(contraints)
+                .build()
 
-        if (result == JobScheduler.RESULT_SUCCESS)
-            Log.d(TAG, "ScheduleService: Job scheduled")
-        else
-            Log.d(TAG, "ScheduleService: Job not scheduled")
+        WorkManager.getInstance(this)
+            .enqueue(workRequest)
     }
 
     private fun clearCode() {
-        val jobScheduler: JobScheduler = getSystemService(JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.cancel(1001)
-        Log.d(TAG, "CancelService: job cancelled")
+
     }
 }
