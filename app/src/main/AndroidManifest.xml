@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.services">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,11 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Services">
-        <service
-            android:name=".services.jobScheduler.MyDownloadJobSchedulerService"
-            android:enabled="true"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
+
         <service
             android:name=".services.startedService.MainThreadStartedService"
             android:enabled="true"
@@ -43,6 +42,18 @@
             android:name=".services.startedService.ResultReceiverStartedService"
             android:enabled="true"
             android:exported="false" />
+
+        <service
+            android:name=".services.jobScheduler.MyDownloadJobSchedulerService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!--Work manager long running service notification-->
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="location|dataSync"
+            tools:node="merge" />
 
         <activity
             android:name=".activity.StartServiceMainActivity"
