@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.services">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,37 +10,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Services">
-
+        <service
+            android:name=".services.jobScheduler.MyDownloadJobSchedulerService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
             android:name=".services.startedService.MainThreadStartedService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".services.startedService.BackGroundThreadStartedService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".services.startedService.ThreadLooperHandlerStartedService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".services.startedService.AsyncTaskStartedService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".services.startedService.OnStartCommandReturnFlagStartedService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".services.startedService.StopSelfStopServiceInStartedService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".services.startedService.ResultReceiverStartedService"
             android:enabled="true"
@@ -48,12 +47,24 @@
         <activity
             android:name=".StartServiceMainActivity"
             android:exported="true">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".JobSchedulerApiMainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>
